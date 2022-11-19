@@ -32,19 +32,19 @@ type params = {
 
 import texture from './texture'
 export default class Space {
-  name: string
-  canvas: HTMLElement
-  renderer?: WebGLRenderer
-  clock?: Clock
-  scene?: Scene
-  camera?: PerspectiveCamera
-  control?: Control
-  axeHelper?: AxesHelper
-  h_light?: HemisphereLight
-  p_light?: PointLight
-  c_mes?: Mesh
-  o_mes?: Mesh
-  params: params
+  public name: string
+  public control?: Control
+  private canvas: HTMLElement
+  private renderer?: WebGLRenderer
+  private clock?: Clock
+  private scene?: Scene
+  private camera?: PerspectiveCamera
+  private axeHelper?: AxesHelper
+  private h_light?: HemisphereLight
+  private p_light?: PointLight
+  private c_mes?: Mesh
+  private o_mes?: Mesh
+  private params: params
 
 
   constructor({
