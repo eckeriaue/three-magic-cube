@@ -21,9 +21,17 @@ import {
 import Control from './Control'
 import LightBar from './LightBar'
 
+type params = {
+  scene?: {
+    speed?: number
+  },
+  object?: {
+    speed?: number
+  }
+}
+
 import texture from './texture'
-import config from './config'
-export default class Space  {
+export default class Space {
   name: string
   canvas: HTMLElement
   renderer: WebGLRenderer
@@ -36,11 +44,28 @@ export default class Space  {
   p_light: PointLight
   c_mes: Mesh
   o_mes: Mesh
+  params: params
 
 
-  constructor(props: {name: string, canvas: HTMLElement}) {
-    this.name = props.name ?? ''
-    this.canvas = props.canvas ?? null
+  constructor({
+    name,
+    canvas,
+    params,
+  }: {
+    name: string
+    canvas: HTMLElement
+    params: params
+  }) {
+    this.name = name ?? ''
+    this.canvas = canvas ?? null
+    this.params = params ?? {
+      scene: {
+        speed: 0.2
+      },
+      object: {
+        speed: 0
+      }
+    }
     this.main()
   }
   private main(): void {
@@ -114,14 +139,14 @@ export default class Space  {
   }
 
   private render(): void {
-    this.scene.rotation.y = this.clock.getElapsedTime() * config.scene.speed
+    this.scene.rotation.y = this.clock.getElapsedTime() * this.params.scene.speed
 
-    this.o_mes.rotation.y = -this.clock.getElapsedTime() * config.object.speed 
-    this.o_mes.rotation.z = this.clock.getElapsedTime() * config.object.speed
-    this.o_mes.rotation.x = this.clock.getElapsedTime() * config.object.speed
+    this.o_mes.rotation.y = -this.clock.getElapsedTime() * this.params.object.speed 
+    this.o_mes.rotation.z = this.clock.getElapsedTime() * this.params.object.speed
+    this.o_mes.rotation.x = this.clock.getElapsedTime() * this.params.object.speed
 
     this.o_mes.position.y = 
-      Math.sin(this.clock.getElapsedTime() * config.object.speed * 0.2)
+      Math.sin(this.clock.getElapsedTime() * this.params.object.speed * 0.2)
     
     this.camera.lookAt(this.scene.position)
     this.camera.updateMatrixWorld()

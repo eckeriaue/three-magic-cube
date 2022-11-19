@@ -3,7 +3,11 @@ import Panel from './Panel'
 
 import config from './config'
 const canvas: HTMLElement = document.getElementById('c')
-const world = new Space({canvas: canvas, name: 'wrld'})
+const world = new Space({
+  canvas: canvas,
+  name: 'wrld',
+  params: config
+})
 
 new Panel(config)
 
