@@ -9,7 +9,6 @@ type lightBarProps = {
   scene: Scene,
   uid: number
 }
-
 export default class LightBar {
   c_mes: Mesh
 	constructor({scene, uid}: lightBarProps) {
@@ -28,8 +27,8 @@ export default class LightBar {
 		this.c_mes = new Mesh(c_geo, c_mat)
 		this.c_mes.position.y =
 			-Math.random() * (amp / 2) + Math.random() * (amp / 2)
-		this.c_mes.position.x = -Math.sin(i * 0.3) * Math.PI
-		this.c_mes.position.z = -Math.cos(i * 0.3) * Math.PI
+		this.c_mes.position.x = -Math.sin(i * 0.3 /* config */ ) * Math.PI
+		this.c_mes.position.z = -Math.cos(i * 0.3 /* config */ ) * Math.PI
 		e.add(this.c_mes)
 	}
 }

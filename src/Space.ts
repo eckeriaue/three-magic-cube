@@ -63,7 +63,7 @@ export default class Space {
         speed: 0.2
       },
       object: {
-        speed: 0
+        speed: 0,
       }
     }
     this.main()
@@ -111,7 +111,7 @@ export default class Space {
 
   private capsule(): void {
     for (let i = 0; i < 20; i++) {
-			const lightbar: LightBar = new LightBar({ scene: this.scene, uid: i })
+			new LightBar({ scene: this.scene, uid: i }) as LightBar
     }
   }
 
@@ -120,9 +120,9 @@ export default class Space {
     const c_geo: CircleGeometry = new CircleGeometry(5,5)
     const o_mat = new MeshMatcapMaterial({
       color: 0xffffff,
-      // side: 
+      // side:
       matcap: new TextureLoader().load(texture.matcap),
-      map: new TextureLoader().load(texture.env)
+      map: new TextureLoader().load(texture.env),
     })
 
     this.c_mes = new Mesh(c_geo, o_mat)

@@ -3,6 +3,7 @@ export default {
 		speed: 0.2
 	},
 	object: {
-		speed: 0
-	}
+		speed: 0,
+	},
+
 };
