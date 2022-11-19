@@ -1,8 +1,8 @@
 import { Pane } from "tweakpane"
-import config from "./config"
+import type { Scene } from "three"
 
 export default class Panel {
-  constructor() {
+  constructor(public config: {scene: object, object: object}) {
 		const pn: any = new Pane({
       title: "Panel"
     })
@@ -11,8 +11,8 @@ export default class Panel {
       title: "Scene"
     })
 
-		sn.addInput(config.scene, "speed", { min: 0, max: 1, label: "Speed" })
+		sn.addInput(this.config.scene, "speed", { min: 0, max: 1, label: "Speed" })
 		const ob = pn.addFolder({ title: "Object" })
-		ob.addInput(config.object, "speed", { min: 0, max: 1, label: "Speed" })
+		ob.addInput(this.config.object, "speed", { min: 0, max: 1, label: "Speed" })
   }
 }
