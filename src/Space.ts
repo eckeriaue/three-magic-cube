@@ -22,11 +22,11 @@ import Control from './Control'
 import LightBar from './LightBar'
 
 type params = {
-  scene?: {
-    speed?: number
+  scene: {
+    speed: number
   },
-  object?: {
-    speed?: number
+  object: {
+    speed: number
   }
 }
 
@@ -34,16 +34,16 @@ import texture from './texture'
 export default class Space {
   name: string
   canvas: HTMLElement
-  renderer: WebGLRenderer
-  clock: Clock
-  scene: Scene
-  camera: PerspectiveCamera
-  control: Control
-  axeHelper: AxesHelper
-  h_light: HemisphereLight
-  p_light: PointLight
-  c_mes: Mesh
-  o_mes: Mesh
+  renderer?: WebGLRenderer
+  clock?: Clock
+  scene?: Scene
+  camera?: PerspectiveCamera
+  control?: Control
+  axeHelper?: AxesHelper
+  h_light?: HemisphereLight
+  p_light?: PointLight
+  c_mes?: Mesh
+  o_mes?: Mesh
   params: params
 
 
@@ -106,12 +106,12 @@ export default class Space {
     this.p_light = new PointLight(0xffffff, 0.2)
     this.p_light.castShadow = true
     this.p_light.position.set(1, 5, 1)
-    this.scene.add(this.h_light, this.p_light)
+    if (this.scene) this.scene.add(this.h_light, this.p_light)
   }
 
   private capsule(): void {
     for (let i = 0; i < 20; i++) {
-			new LightBar({ scene: this.scene, uid: i }) as LightBar
+			new LightBar({ scene: this.scene ?? new Scene(), uid: i }) as LightBar
     }
   }
 
@@ -129,28 +129,32 @@ export default class Space {
     this.o_mes = new Mesh(o_geo, o_mat)
     this.c_mes.rotateX(Math.PI / 2)
     this.c_mes.position.y = -1
-    this.scene.add(this.o_mes)
+    this.scene?.add(this.o_mes)
   }
 
   public resize(): void {
-    this.camera.aspect = window.innerWidth / window.innerHeight
-    this.camera.updateProjectionMatrix()
-    this.renderer.setSize(window.innerWidth, window.innerHeight)
+    if (this.camera) this.camera.aspect = window.innerWidth / window.innerHeight
+    this.camera?.updateProjectionMatrix()
+    this.renderer?.setSize(window.innerWidth, window.innerHeight)
   }
 
   private render(): void {
-    this.scene.rotation.y = this.clock.getElapsedTime() * this.params.scene.speed
+    if (this.o_mes && this.clock) {
+      if (this.scene) this.scene.rotation.y = this.clock.getElapsedTime() * this.params.scene.speed
 
-    this.o_mes.rotation.y = -this.clock.getElapsedTime() * this.params.object.speed 
-    this.o_mes.rotation.z = this.clock.getElapsedTime() * this.params.object.speed
-    this.o_mes.rotation.x = this.clock.getElapsedTime() * this.params.object.speed
+      this.o_mes.rotation.y = -this.clock.getElapsedTime() * this.params.object.speed 
+      this.o_mes.rotation.z = this.clock.getElapsedTime() * this.params.object.speed
+      this.o_mes.rotation.x = this.clock.getElapsedTime() * this.params.object.speed
 
-    this.o_mes.position.y = 
-      Math.sin(this.clock.getElapsedTime() * this.params.object.speed * 0.2)
-    
-    this.camera.lookAt(this.scene.position)
-    this.camera.updateMatrixWorld()
-    this.renderer.render(this.scene, this.camera)
+      this.o_mes.position.y = 
+        Math.sin(this.clock.getElapsedTime() * this.params.object.speed * 0.2)
+    }
+
+    if (this.camera && this.scene && this.renderer) {
+      this.camera.lookAt(this.scene.position)
+      this.camera.updateMatrixWorld()
+      this.renderer.render(this.scene, this.camera)
+    }
   }
   private loop(): void {
     this.render()
