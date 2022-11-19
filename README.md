@@ -1,1 +1,0 @@
-# [demo](https://eckeriaue.github.io/three-magic-cube/dist/)

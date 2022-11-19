@@ -10,7 +10,7 @@ type lightBarProps = {
   uid: number
 }
 export default class LightBar {
-  c_mes: Mesh
+  c_mes?: Mesh
 	constructor({scene, uid}: lightBarProps) {
 		this.geometry(scene, uid)
 	}
