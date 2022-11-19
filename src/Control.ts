@@ -19,8 +19,8 @@ export default class Control {
 		this.controls.target.set(0, 0, 0)
 		this.controls.rotateSpeed = 0.9
 		this.controls.enableZoom = false
-		// this.controls.enableDamping = true
-		// this.controls.dampingFactor = 0.02
+		this.controls.enableDamping = true
+		this.controls.dampingFactor = 0.02
 
     this.update()
 	}
