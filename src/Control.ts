@@ -1,7 +1,8 @@
+import type { PerspectiveCamera } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 type coltrolsProps = {
-  camera: any,
+  camera: PerspectiveCamera,
   canvas: HTMLElement
 }
 export default class Control {
