@@ -1,1 +1,1 @@
-# [demo](https://eckeriaue.github.io/three-magic-cube/)
+# [demo](https://eckeriaue.github.io/three-magic-cube/dist/)
